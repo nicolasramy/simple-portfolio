@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+# from django.contrib
 
 
 class FrontendModel(models.Model):
@@ -12,9 +13,23 @@ class FrontendModel(models.Model):
         abstract = True
 
 
+class Category(FrontendModel):
+    is_active = models.BooleanField(default=True)
+    name = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
+    def __unicode__(self):
+        return u'{}'.format(self.name)
+
+
 class Project(FrontendModel):
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200)
+    is_published = models.BooleanField(default=False)
     description = models.TextField(blank=True, null=True)
 
     class Meta:
