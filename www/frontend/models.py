@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
-# from django.contrib
+from django.db.models.signals import pre_save
+from django.utils.text import  slugify
 
 
 class FrontendModel(models.Model):
@@ -31,6 +32,7 @@ class Project(FrontendModel):
     slug = models.CharField(max_length=200)
     is_published = models.BooleanField(default=False)
     description = models.TextField(blank=True, null=True)
+    category = models.ForeignKey('Category')
 
     class Meta:
         verbose_name = 'project'
@@ -55,3 +57,16 @@ class Picture(FrontendModel):
 
     def __unicode__(self):
         return u'{}'.format(self.title)
+
+
+def generate_slug(sender, instance, **kwargs):
+    if sender.__name__ == 'Picture':
+        instance.slug = '{}/{}'.format(instance.project.slug, slugify(instance.name))
+    elif sender.__name__ == 'Project':
+        instance.slug = '{}/{}'.format(instance.category.slug, slugify(instance.name))
+    else:
+        instance.slug = slugify(instance.name)
+
+
+pre_save.connect(generate_slug, sender=Category)
+pre_save.connect(generate_slug, sender=Project)
