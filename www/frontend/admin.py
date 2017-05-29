@@ -24,8 +24,16 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ('pk', 'is_published', 'category', 'name', 'slug', 'created', 'modified')
     list_display_links = ('pk', 'name')
 
-    list_filter = ('is_published', 'category')
+    list_filter = ('is_published', 'category', 'created')
     search_fields = ['name', 'slug', 'description']
 
 
-admin.site.register(Picture)
+@admin.register(Picture)
+class PictureAdmin(admin.ModelAdmin):
+    fields = ('project', 'is_cover', 'name', 'image', 'position')
+
+    list_display = ('pk', 'project', 'is_cover', 'name', 'preview', 'position', 'slug', 'created', 'modified')
+    list_display_links = ('pk', 'name')
+
+    list_filter = ('project', 'is_cover', 'created')
+    search_fields = ['name', 'slug', 'description']

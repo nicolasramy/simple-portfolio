@@ -203,3 +203,5 @@ ENV/
 
 *.sqlite[3]
 settings.py
+
+uploads/
