@@ -18,3 +18,7 @@ A simple solution to publish your portfolio
 
 ## TODO
 - [] Add auto-remove on picture edition and remove
+- [] Add themes management from admin
+- [] Add Dockerfile
+- [] Add a deployment in production file 
+
