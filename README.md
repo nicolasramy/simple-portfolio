@@ -1,7 +1,6 @@
 # simple-portfolio
 A simple solution to publish your portfolio
 
-
 ## Requirements
 
 - Python 2.7
