@@ -3,7 +3,17 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from .models import Category, Project, Picture
+from .models import Parameter, Category, Project, Picture
+
+
+@admin.register(Parameter)
+class ParameterAdmin(admin.ModelAdmin):
+    fields = ('name', 'value')
+
+    list_display = ('pk', 'name', 'value')
+    list_display_links = ('pk', 'name')
+
+    search_fields = ['name', 'value']
 
 
 @admin.register(Category)

@@ -1,0 +1,13 @@
+<h1 class="ui header">{{ params.site_title }}</h1>
+<span>{{ params.site_subtitle }}</span>
+
+<div class="ui secondary pointing menu">
+  <a class="{% if not current_project %}active{% endif %} item" href="{% url 'home' %}">
+    Home
+  </a>
+  {% if projects %}
+  {% for project in projects %}
+  <a class="{% if current_project.slug == project.slug %}active{% endif %} item" href="{% url 'project_view' project.slug %}">{{ project.name }}</a>
+  {% endfor %}
+  {% endif %}
+</div>

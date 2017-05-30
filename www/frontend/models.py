@@ -21,6 +21,18 @@ class FrontendModel(models.Model):
         abstract = True
 
 
+class Parameter(FrontendModel):
+    name = models.CharField(max_length=200)
+    value = models.TextField()
+
+    class Meta:
+        verbose_name = 'parameter'
+        verbose_name_plural = 'parameters'
+
+    def __unicode__(self):
+        return u'{}'.format(self.name)
+
+
 class Category(FrontendModel):
     is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=200)
@@ -87,6 +99,12 @@ def generate_slug(sender, instance, **kwargs):
         instance.slug = slugify(instance.name)
 
 
+def generate_parameter_name(sender, instance, **kwargs):
+    instance.name = slugify(instance.name).replace('-', '_')
+
+
 pre_save.connect(generate_slug, sender=Category)
 pre_save.connect(generate_slug, sender=Project)
 pre_save.connect(generate_slug, sender=Picture)
+
+pre_save.connect(generate_parameter_name, sender=Parameter)
