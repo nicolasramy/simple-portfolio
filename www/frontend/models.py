@@ -91,12 +91,7 @@ class Picture(FrontendModel):
 
 
 def generate_slug(sender, instance, **kwargs):
-    if sender.__name__ == 'Picture':
-        instance.slug = '{}/{}'.format(instance.project.slug, slugify(instance.name))
-    elif sender.__name__ == 'Project':
-        instance.slug = '{}/{}'.format(instance.category.slug, slugify(instance.name))
-    else:
-        instance.slug = slugify(instance.name)
+    instance.slug = slugify(instance.name)
 
 
 def generate_parameter_name(sender, instance, **kwargs):
