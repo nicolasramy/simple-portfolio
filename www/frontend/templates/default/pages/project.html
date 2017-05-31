@@ -1,11 +1,9 @@
 {% extends "default/layouts/main.html" %}
 
 {% block content %}
-<div class="ui basic segment">
-  <h2 class="ui header">{{ current_project.name }}</h2>
+<h2 class="ui header">{{ current_project.name }}</h2>
 
-  <div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>
 
-  <p>{{ current_project.description }}</p>
-</div>
+<p>{{ current_project.description }}</p>
 {% endblock %}
