@@ -1,5 +1,10 @@
+{% load custom_filters %}
+
 <h1 class="ui header" id="site_title"><a href="{% url 'home' %}">{{ params.site_title }}</a></h1>
 <h2 class="ui sub header" id="site_subtitle">{{ params.site_subtitle }}</h2>
+
+{{ params.site_introduction|markdownify }}
+
 
 {% if brands %}
 <div class="ui secondary pointing menu">
