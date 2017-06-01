@@ -2,8 +2,10 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from django.db import models
 
 from adminsortable.admin import SortableAdmin
+from pagedown.widgets import AdminPagedownWidget
 
 from .models import Parameter, Brand, Project, Picture
 
@@ -11,6 +13,10 @@ from .models import Parameter, Brand, Project, Picture
 @admin.register(Parameter)
 class ParameterAdmin(admin.ModelAdmin):
     fields = ('name', 'value')
+
+    formfield_overrides = {
+        models.TextField: {'widget': AdminPagedownWidget },
+    }
 
     list_display = ('pk', 'name', 'value')
     list_display_links = ('pk', 'name')
@@ -21,6 +27,10 @@ class ParameterAdmin(admin.ModelAdmin):
 @admin.register(Brand)
 class BrandAdmin(SortableAdmin):
     fields = ('is_visible', 'name', 'description')
+
+    formfield_overrides = {
+        models.TextField: {'widget': AdminPagedownWidget },
+    }
 
     list_display = ('pk', 'is_visible', 'name', 'slug')
     list_display_links = ('pk', 'name')
@@ -33,6 +43,10 @@ class BrandAdmin(SortableAdmin):
 class ProjectAdmin(SortableAdmin):
     fields = ('is_visible', 'brand', 'name', 'description')
 
+    formfield_overrides = {
+        models.TextField: {'widget': AdminPagedownWidget },
+    }
+
     list_display = ('pk', 'is_visible', 'brand', 'name', 'slug', 'created', 'modified')
     list_display_links = ('pk', 'name')
 
@@ -42,9 +56,13 @@ class ProjectAdmin(SortableAdmin):
 
 @admin.register(Picture)
 class PictureAdmin(SortableAdmin):
-    fields = ('project', 'is_portrait', 'is_cover', 'is_visible', 'name', 'image', 'position')
+    fields = ('project', 'is_portrait', 'is_cover', 'is_visible', 'name', 'image', 'description')
 
-    list_display = ('pk', 'project', 'is_portrait', 'is_cover', 'is_visible', 'name', 'preview', 'position', 'slug',
+    formfield_overrides = {
+        models.TextField: {'widget': AdminPagedownWidget },
+    }
+
+    list_display = ('pk', 'project', 'is_portrait', 'is_cover', 'is_visible', 'name', 'preview', 'slug',
                     'created', 'modified')
     list_display_links = ('pk', 'name')
 
