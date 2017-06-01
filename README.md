@@ -21,4 +21,4 @@ A simple solution to publish your portfolio
 - [] Add themes management from admin
 - [] Add Dockerfile
 - [] Add a deployment in production file 
-
+- [] Add security for is_portrait field
