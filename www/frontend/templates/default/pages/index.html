@@ -1,9 +1,14 @@
 {% extends "default/layouts/main.html" %}
 
 {% block content %}
+  {% load custom_filters %}
+
 <h2 class="ui header">{{ params.home_introduction|upper }}</h2>
 
 {{ portrait.image.preview }}
-<p>{{ params.home_presentation }}</p>
+
+{% autoescape off %}
+{{ params.home_presentation|markdownify }}
+{% endautoescape %}
 
 {% endblock %}

@@ -5,4 +5,10 @@
 <h3 class="ui header">{{ current_project.name }}</h3>
 
 <p>{{ current_project.description }}</p>
+
+{% if current_project.pictures %}
+  {% for picture in current_project.pictures %}
+  <img class="ui fluid image" src="{{ picture.image }}" title="{{ picture.name }}">
+  {% endfor %}
+{% endif %}
 {% endblock %}
