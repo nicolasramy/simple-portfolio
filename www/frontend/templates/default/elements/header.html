@@ -1,5 +1,5 @@
-<h1 class="ui header">{{ params.site_title }}</h1>
-<span>{{ params.site_subtitle }}</span>
+<h1 class="ui header" id="site_title">{{ params.site_title }}</h1>
+<h2 class="ui sub header" id="site_subtitle">{{ params.site_subtitle }}</h2>
 
 <div class="ui secondary pointing menu">
   <a class="{% if not current_brand %}active{% endif %} item" href="{% url 'home' %}">
@@ -11,5 +11,3 @@
   {% endfor %}
   {% endif %}
 </div>
-
-<div class="ui hidden divider"></div>

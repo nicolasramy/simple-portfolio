@@ -1,9 +1,10 @@
 {% extends "default/layouts/main.html" %}
 
 {% block content %}
+<h2 class="ui header">{{ current_brand.name }}</h2>
 
-  Hello World
+{% include 'default/elements/subheader.html' %}
+<div class="ui hidden divider"></div>
 
-  {{ page_content }}
-
+<p>{{ current_brand.description }}</p>
 {% endblock %}

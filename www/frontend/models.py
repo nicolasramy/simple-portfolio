@@ -8,6 +8,8 @@ from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.conf import settings
 
+from adminsortable.models import SortableMixin
+
 
 def get_upload_to_path(instance, filename):
     return os.path.join(instance.project.slug, filename)
@@ -33,27 +35,37 @@ class Parameter(FrontendModel):
         return u'{}'.format(self.name)
 
 
-class Brand(FrontendModel):
+class Brand(FrontendModel, SortableMixin):
     is_visible = models.BooleanField(default=True)
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+
+    brand_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
     class Meta:
+        ordering = ['brand_order']
         verbose_name = 'brand'
         verbose_name_plural = 'brands'
 
     def __unicode__(self):
         return u'{}'.format(self.name)
 
+    def projects(self):
+        return Project.objects.filter(brand_id=self.id).filter(is_visible=True).all()
 
-class Project(FrontendModel):
+
+class Project(FrontendModel, SortableMixin):
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200)
     is_visible = models.BooleanField(default=False)
     description = models.TextField(blank=True, null=True)
     brand = models.ForeignKey('Brand')
 
+    project_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+
     class Meta:
+        ordering = ['project_order']
         verbose_name = 'project'
         verbose_name_plural = 'projects'
 
@@ -61,7 +73,7 @@ class Project(FrontendModel):
         return u'{}'.format(self.name)
 
 
-class Picture(FrontendModel):
+class Picture(FrontendModel, SortableMixin):
     name = models.CharField(max_length=200, blank=True)
     slug = models.CharField(max_length=200)
     position = models.IntegerField(blank=True, null=True)
@@ -71,6 +83,8 @@ class Picture(FrontendModel):
 
     project = models.ForeignKey('Project')
     image = models.ImageField(upload_to=get_upload_to_path)
+
+    picture_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
     def preview(self):
         if self.image:
@@ -84,6 +98,7 @@ class Picture(FrontendModel):
     preview.allow_tags = True
 
     class Meta:
+        ordering = ['picture_order']
         verbose_name = 'picture'
         verbose_name_plural = 'pictures'
 

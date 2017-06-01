@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
+from adminsortable.admin import SortableAdmin
+
 from .models import Parameter, Brand, Project, Picture
 
 
@@ -17,8 +19,8 @@ class ParameterAdmin(admin.ModelAdmin):
 
 
 @admin.register(Brand)
-class BrandAdmin(admin.ModelAdmin):
-    fields = ('is_visible', 'name')
+class BrandAdmin(SortableAdmin):
+    fields = ('is_visible', 'name', 'description')
 
     list_display = ('pk', 'is_visible', 'name', 'slug')
     list_display_links = ('pk', 'name')
@@ -28,8 +30,8 @@ class BrandAdmin(admin.ModelAdmin):
 
 
 @admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
-    fields = ('is_visible', 'category', 'name', 'description')
+class ProjectAdmin(SortableAdmin):
+    fields = ('is_visible', 'brand', 'name', 'description')
 
     list_display = ('pk', 'is_visible', 'brand', 'name', 'slug', 'created', 'modified')
     list_display_links = ('pk', 'name')
@@ -39,7 +41,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 @admin.register(Picture)
-class PictureAdmin(admin.ModelAdmin):
+class PictureAdmin(SortableAdmin):
     fields = ('project', 'is_cover', 'is_visible', 'name', 'image', 'position')
 
     list_display = ('pk', 'project', 'is_cover', 'is_visible', 'name', 'preview', 'position', 'slug', 'created',
