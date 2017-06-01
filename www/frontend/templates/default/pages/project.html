@@ -4,7 +4,9 @@
 <h2 class="ui header">{{ current_project.brand.name }}</h2>
 <h3 class="ui header">{{ current_project.name }}</h3>
 
-<p>{{ current_project.description }}</p>
+{% autoescape off %}
+{{ current_project.description|markdownify }}
+{% endautoescape %}
 
 {% if current_project.pictures %}
   {% for picture in current_project.pictures %}
