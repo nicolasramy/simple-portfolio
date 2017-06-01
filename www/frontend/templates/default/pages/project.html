@@ -1,6 +1,8 @@
 {% extends "default/layouts/main.html" %}
 
 {% block content %}
+{% load custom_filters %}
+
 <h2 class="ui header">{{ current_project.brand.name }}</h2>
 <h3 class="ui header">{{ current_project.name }}</h3>
 

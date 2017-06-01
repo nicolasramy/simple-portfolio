@@ -1,6 +1,7 @@
 {% extends "default/layouts/main.html" %}
 
 {% block content %}
+{% load custom_filters %}
 <h2 class="ui header">{{ current_brand.name }}</h2>
 
 {% include 'default/elements/subheader.html' %}
