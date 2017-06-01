@@ -3,8 +3,9 @@
 <h1 class="ui header" id="site_title"><a href="{% url 'home' %}">{{ params.site_title }}</a></h1>
 <h2 class="ui sub header" id="site_subtitle">{{ params.site_subtitle }}</h2>
 
+{% autoescape off %}
 {{ params.site_introduction|markdownify }}
-
+{% endautoescape %}
 
 {% if brands %}
 <div class="ui secondary pointing menu">
