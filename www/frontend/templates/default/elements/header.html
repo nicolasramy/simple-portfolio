@@ -1,13 +1,10 @@
-<h1 class="ui header" id="site_title">{{ params.site_title }}</h1>
+<h1 class="ui header" id="site_title"><a href="{% url 'home' %}">{{ params.site_title }}</a></h1>
 <h2 class="ui sub header" id="site_subtitle">{{ params.site_subtitle }}</h2>
 
+{% if brands %}
 <div class="ui secondary pointing menu">
-  <a class="{% if not current_brand %}active{% endif %} item" href="{% url 'home' %}">
-    Home
-  </a>
-  {% if brands %}
   {% for brand in brands %}
   <a class="{% if current_brand.slug == brand.slug %}active{% endif %} item" href="{% url 'brand_view' brand.slug %}">{{ brand.name }}</a>
   {% endfor %}
-  {% endif %}
 </div>
+{% endif %}
