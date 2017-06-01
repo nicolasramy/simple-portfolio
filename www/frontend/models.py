@@ -78,7 +78,6 @@ class Project(FrontendModel, SortableMixin):
 class Picture(FrontendModel, SortableMixin):
     name = models.CharField(max_length=200, blank=True)
     slug = models.CharField(max_length=200)
-    position = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     is_cover = models.BooleanField(default=False)
     is_visible = models.BooleanField(default=False)
