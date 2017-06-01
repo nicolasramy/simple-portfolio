@@ -9,7 +9,8 @@ from .models import Parameter, Brand, Project, Picture
 def contextualize():
     return {
         'params': {parameter.name: parameter.value for parameter in Parameter.objects.all()},
-        'brands': Brand.objects.filter(is_visible=True)
+        'brands': Brand.objects.filter(is_visible=True),
+        'portrait': Picture.objects.get(is_portrait=True)
     }
 
 

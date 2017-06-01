@@ -12,6 +12,8 @@ from adminsortable.models import SortableMixin
 
 
 def get_upload_to_path(instance, filename):
+    if not instance.project:
+        return filename
     return os.path.join(instance.project.slug, filename)
 
 
@@ -82,7 +84,7 @@ class Picture(FrontendModel, SortableMixin):
     is_visible = models.BooleanField(default=False)
     is_portrait = models.BooleanField(default=False)
 
-    project = models.ForeignKey('Project')
+    project = models.ForeignKey('Project', blank=True, null=True)
     image = models.ImageField(upload_to=get_upload_to_path)
 
     picture_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
