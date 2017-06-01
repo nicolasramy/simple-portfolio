@@ -7,10 +7,25 @@ from .models import Parameter, Brand, Project, Picture
 
 
 def contextualize():
+    try:
+        params = {parameter.name: parameter.value for parameter in Parameter.objects.all()}
+    except:
+        params = None
+
+    try:
+        brands = Brand.objects.filter(is_visible=True)
+    except:
+        brands = None
+
+    try:
+        portrait = Picture.objects.get(is_portrait=True)
+    except:
+        portrait = None
+
     return {
-        'params': {parameter.name: parameter.value for parameter in Parameter.objects.all()},
-        'brands': Brand.objects.filter(is_visible=True),
-        'portrait': Picture.objects.get(is_portrait=True)
+        'params': params,
+        'brands': brands,
+        'portrait': portrait
     }
 
 
