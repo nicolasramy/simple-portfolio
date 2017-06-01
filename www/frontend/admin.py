@@ -42,11 +42,11 @@ class ProjectAdmin(SortableAdmin):
 
 @admin.register(Picture)
 class PictureAdmin(SortableAdmin):
-    fields = ('project', 'is_cover', 'is_visible', 'name', 'image', 'position')
+    fields = ('project', 'is_portrait', 'is_cover', 'is_visible', 'name', 'image', 'position')
 
-    list_display = ('pk', 'project', 'is_cover', 'is_visible', 'name', 'preview', 'position', 'slug', 'created',
-                    'modified')
+    list_display = ('pk', 'project', 'is_portrait', 'is_cover', 'is_visible', 'name', 'preview', 'position', 'slug',
+                    'created', 'modified')
     list_display_links = ('pk', 'name')
 
-    list_filter = ('project', 'is_cover', 'is_visible', 'created')
+    list_filter = ('project', 'is_portrait', 'is_cover', 'is_visible', 'created')
     search_fields = ['name', 'slug', 'description']

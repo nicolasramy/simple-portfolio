@@ -80,6 +80,7 @@ class Picture(FrontendModel, SortableMixin):
     description = models.TextField(blank=True, null=True)
     is_cover = models.BooleanField(default=False)
     is_visible = models.BooleanField(default=False)
+    is_portrait = models.BooleanField(default=False)
 
     project = models.ForeignKey('Project')
     image = models.ImageField(upload_to=get_upload_to_path)
