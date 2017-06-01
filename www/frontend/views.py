@@ -3,13 +3,13 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
-from .models import Parameter, Category, Project, Picture
+from .models import Parameter, Brand, Project, Picture
 
 
 def contextualize():
     return {
         'params': {parameter.name: parameter.value for parameter in Parameter.objects.all()},
-        'projects': Project.objects.filter(is_published=True)
+        'brands': Brand.objects.filter(is_visible=True)
     }
 
 
@@ -18,19 +18,22 @@ def index(request):
     return render(request, 'default/pages/index.html', context)
 
 
-def category_index(request):
+def brand_index(request):
     context = contextualize()
 
-    categories = Category.objects.filter(is_active=True)
-    context['categories'] = categories
+    brands = Brand.objects.filter(is_visible=True)
+    context['brands'] = brands
 
-    return render(request, 'default/pages/categories.html', context)
+    return render(request, 'default/pages/brands.html', context)
 
 
-def category_view(request):
+def brand_view(request, brand_slug):
     context = contextualize()
 
-    return render(request, 'default/pages/category.html', context)
+    current_brand = Brand.objects.filter(is_visible=True).get(slug=brand_slug)
+    context['current_brand'] = current_brand
+
+    return render(request, 'default/pages/brand.html', context)
 
 
 def project_index(request):
@@ -42,7 +45,7 @@ def project_index(request):
 def project_view(request, project_slug):
     context = contextualize()
 
-    current_project = Project.objects.filter(is_published=True).get(slug=project_slug)
+    current_project = Project.objects.filter(is_visible=True).get(slug=project_slug)
     context['current_project'] = current_project
 
     return render(request, 'default/pages/project.html', context)

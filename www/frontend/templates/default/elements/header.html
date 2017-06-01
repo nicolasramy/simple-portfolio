@@ -2,12 +2,12 @@
 <span>{{ params.site_subtitle }}</span>
 
 <div class="ui secondary pointing menu">
-  <a class="{% if not current_project %}active{% endif %} item" href="{% url 'home' %}">
+  <a class="{% if not current_brand %}active{% endif %} item" href="{% url 'home' %}">
     Home
   </a>
-  {% if projects %}
-  {% for project in projects %}
-  <a class="{% if current_project.slug == project.slug %}active{% endif %} item" href="{% url 'project_view' project.slug %}">{{ project.name }}</a>
+  {% if brands %}
+  {% for brand in brands %}
+  <a class="{% if current_brand.slug == brand.slug %}active{% endif %} item" href="{% url 'brand_view' brand.slug %}">{{ brand.name }}</a>
   {% endfor %}
   {% endif %}
 </div>

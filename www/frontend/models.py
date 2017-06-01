@@ -23,7 +23,7 @@ class FrontendModel(models.Model):
 
 class Parameter(FrontendModel):
     name = models.CharField(max_length=200)
-    value = models.TextField()
+    value = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name = 'parameter'
@@ -33,14 +33,14 @@ class Parameter(FrontendModel):
         return u'{}'.format(self.name)
 
 
-class Category(FrontendModel):
-    is_active = models.BooleanField(default=True)
+class Brand(FrontendModel):
+    is_visible = models.BooleanField(default=True)
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200)
 
     class Meta:
-        verbose_name = 'category'
-        verbose_name_plural = 'categories'
+        verbose_name = 'brand'
+        verbose_name_plural = 'brands'
 
     def __unicode__(self):
         return u'{}'.format(self.name)
@@ -49,9 +49,9 @@ class Category(FrontendModel):
 class Project(FrontendModel):
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200)
-    is_published = models.BooleanField(default=False)
+    is_visible = models.BooleanField(default=False)
     description = models.TextField(blank=True, null=True)
-    category = models.ForeignKey('Category')
+    brand = models.ForeignKey('Brand')
 
     class Meta:
         verbose_name = 'project'
@@ -67,6 +67,7 @@ class Picture(FrontendModel):
     position = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     is_cover = models.BooleanField(default=False)
+    is_visible = models.BooleanField(default=False)
 
     project = models.ForeignKey('Project')
     image = models.ImageField(upload_to=get_upload_to_path)
@@ -98,7 +99,7 @@ def generate_parameter_name(sender, instance, **kwargs):
     instance.name = slugify(instance.name).replace('-', '_')
 
 
-pre_save.connect(generate_slug, sender=Category)
+pre_save.connect(generate_slug, sender=Brand)
 pre_save.connect(generate_slug, sender=Project)
 pre_save.connect(generate_slug, sender=Picture)
 
