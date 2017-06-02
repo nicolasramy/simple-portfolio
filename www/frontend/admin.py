@@ -7,7 +7,7 @@ from django.db import models
 from adminsortable.admin import SortableAdmin
 from pagedown.widgets import AdminPagedownWidget
 
-from .models import Parameter, Brand, Project, Picture
+from .models import Parameter, Brand, Project, Picture, Document
 
 
 @admin.register(Parameter)
@@ -63,6 +63,21 @@ class PictureAdmin(SortableAdmin):
     }
 
     list_display = ('pk', 'project', 'is_visible', 'name', 'preview', 'slug', 'created', 'modified')
+    list_display_links = ('pk', 'name')
+
+    list_filter = ('project', 'is_visible', 'created')
+    search_fields = ['name', 'slug', 'description']
+
+
+@admin.register(Document)
+class DocumentAdmin(SortableAdmin):
+    fields = ('project', 'is_visible', 'name', 'image', 'description')
+
+    formfield_overrides = {
+        models.TextField: {'widget': AdminPagedownWidget },
+    }
+
+    list_display = ('pk', 'project', 'is_visible', 'name', 'slug', 'created', 'modified')
     list_display_links = ('pk', 'name')
 
     list_filter = ('project', 'is_visible', 'created')
