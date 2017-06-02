@@ -56,15 +56,14 @@ class ProjectAdmin(SortableAdmin):
 
 @admin.register(Picture)
 class PictureAdmin(SortableAdmin):
-    fields = ('project', 'is_portrait', 'is_cover', 'is_visible', 'name', 'image', 'description')
+    fields = ('project', 'is_visible', 'name', 'image', 'description')
 
     formfield_overrides = {
         models.TextField: {'widget': AdminPagedownWidget },
     }
 
-    list_display = ('pk', 'project', 'is_portrait', 'is_cover', 'is_visible', 'name', 'preview', 'slug',
-                    'created', 'modified')
+    list_display = ('pk', 'project', 'is_visible', 'name', 'preview', 'slug', 'created', 'modified')
     list_display_links = ('pk', 'name')
 
-    list_filter = ('project', 'is_portrait', 'is_cover', 'is_visible', 'created')
+    list_filter = ('project', 'is_visible', 'created')
     search_fields = ['name', 'slug', 'description']
