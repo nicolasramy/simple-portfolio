@@ -71,7 +71,7 @@ class PictureAdmin(SortableAdmin):
 
 @admin.register(Document)
 class DocumentAdmin(SortableAdmin):
-    fields = ('project', 'is_visible', 'name', 'image', 'description')
+    fields = ('project', 'is_visible', 'name', 'document', 'description')
 
     formfield_overrides = {
         models.TextField: {'widget': AdminPagedownWidget },

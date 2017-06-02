@@ -126,6 +126,15 @@ def generate_slug(sender, instance, **kwargs):
     instance.slug = slugify(instance.name)
 
 
+def auto_fill_name(sender, instance, **kwargs):
+    if not len(instance.name):
+        if sender.__name__ == 'Picture':
+            instance.name = instance.image
+
+        elif sender.__name__ == 'Document':
+            instance.name = instance.document
+
+
 def generate_parameter_name(sender, instance, **kwargs):
     instance.name = slugify(instance.name).replace('-', '_')
 
@@ -133,5 +142,9 @@ def generate_parameter_name(sender, instance, **kwargs):
 pre_save.connect(generate_slug, sender=Brand)
 pre_save.connect(generate_slug, sender=Project)
 pre_save.connect(generate_slug, sender=Picture)
+pre_save.connect(generate_slug, sender=Document)
+
+pre_save.connect(auto_fill_name, sender=Picture)
+pre_save.connect(auto_fill_name, sender=Document)
 
 pre_save.connect(generate_parameter_name, sender=Parameter)
