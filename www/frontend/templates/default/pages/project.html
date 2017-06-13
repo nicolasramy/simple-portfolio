@@ -12,14 +12,14 @@
   {% endautoescape %}
 
   {% if current_project.pictures %}
-  <div class="ui relaxed grid">
-    <div class="three column row">
+  <div class="ui equal width grid">
+    <!--<div class="three column row">-->
     {% for picture in current_project.pictures %}
       <div class="column">
         <img class="ui fluid image" src="{{ picture.absolute_url }}" title="{{ picture.name }}">
       </div>
     {% endfor %}
-    </div>
+    <!--</div>-->
   </div>
   {% endif %}
 
