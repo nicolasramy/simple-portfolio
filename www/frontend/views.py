@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
-from .models import Parameter, Brand, Project
+from .models import Parameter, Brand, Project, Picture
 
 
 def contextualize():
@@ -62,6 +62,7 @@ def project_view(request, project_slug):
     context = contextualize()
 
     current_project = Project.objects.filter(is_visible=True).get(slug=project_slug)
+    context['current_brand'] = current_project.brand
     context['current_project'] = current_project
 
     return render(request, 'default/pages/project.html', context)

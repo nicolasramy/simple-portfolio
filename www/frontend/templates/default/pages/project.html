@@ -3,8 +3,9 @@
 {% block content %}
 {% load custom_filters %}
 
-<h2 class="ui header">{{ current_project.brand.name }}</h2>
-<h3 class="ui header">{{ current_project.name }}</h3>
+<h2 class="ui header">{{ current_brand.name }}</h2>
+
+{% include 'default/elements/subheader.html' %}
 
 {% autoescape off %}
 {{ current_project.description|markdownify }}
