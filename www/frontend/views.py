@@ -58,11 +58,13 @@ def project_index(request):
     return render(request, 'default/pages/projects.html', context)
 
 
-def project_view(request, project_slug):
+def project_view(request, brand_slug, project_slug):
     context = contextualize()
 
-    current_project = Project.objects.filter(is_visible=True).get(slug=project_slug)
-    context['current_brand'] = current_project.brand
+    current_brand = Brand.objects.filter(is_visible=True).get(slug=brand_slug)
+    current_project = Project.objects.filter(is_visible=True).filter(brand_id=current_brand.id).get(slug=project_slug)
+
+    context['current_brand'] = current_brand
     context['current_project'] = current_project
 
     return render(request, 'default/pages/project.html', context)
