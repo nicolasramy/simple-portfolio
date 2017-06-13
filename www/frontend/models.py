@@ -92,6 +92,12 @@ class Picture(FrontendModel):
         else:
             return None
 
+    def absolute_url(self):
+        if self.image:
+            return u'{}{}{}'.format(settings.SITE_URL, settings.MEDIA_URL, self.image)
+        else:
+            return False
+
     preview.short_description = 'Image'
     preview.allow_tags = True
 
@@ -120,6 +126,12 @@ class Document(FrontendModel):
 
     def __unicode__(self):
         return u'{}'.format(self.name)
+
+    def absolute_url(self):
+        if self.document:
+            return u'{}{}{}'.format(settings.SITE_URL, settings.MEDIA_URL, self.document)
+        else:
+            return False
 
 
 def generate_slug(sender, instance, **kwargs):

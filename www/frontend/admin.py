@@ -15,7 +15,7 @@ class ParameterAdmin(admin.ModelAdmin):
     fields = ('name', 'value')
 
     formfield_overrides = {
-        models.TextField: {'widget': AdminPagedownWidget },
+        models.TextField: {'widget': AdminPagedownWidget},
     }
 
     list_display = ('pk', 'name', 'value')
@@ -29,7 +29,7 @@ class BrandAdmin(SortableAdmin):
     fields = ('is_visible', 'name', 'description')
 
     formfield_overrides = {
-        models.TextField: {'widget': AdminPagedownWidget },
+        models.TextField: {'widget': AdminPagedownWidget},
     }
 
     list_display = ('pk', 'is_visible', 'name', 'slug')
@@ -44,7 +44,7 @@ class ProjectAdmin(SortableAdmin):
     fields = ('is_visible', 'brand', 'name', 'description')
 
     formfield_overrides = {
-        models.TextField: {'widget': AdminPagedownWidget },
+        models.TextField: {'widget': AdminPagedownWidget},
     }
 
     list_display = ('pk', 'is_visible', 'brand', 'name', 'slug', 'created', 'modified')
@@ -59,10 +59,10 @@ class PictureAdmin(SortableAdmin):
     fields = ('project', 'is_visible', 'name', 'image', 'description')
 
     formfield_overrides = {
-        models.TextField: {'widget': AdminPagedownWidget },
+        models.TextField: {'widget': AdminPagedownWidget},
     }
 
-    list_display = ('pk', 'project', 'is_visible', 'name', 'preview', 'slug', 'created', 'modified')
+    list_display = ('pk', 'project', 'is_visible', 'name', 'preview', 'absolute_url', 'slug', 'created', 'modified')
     list_display_links = ('pk', 'name')
 
     list_filter = ('project', 'is_visible', 'created')
@@ -74,7 +74,7 @@ class DocumentAdmin(SortableAdmin):
     fields = ('project', 'is_visible', 'name', 'document', 'description')
 
     formfield_overrides = {
-        models.TextField: {'widget': AdminPagedownWidget },
+        models.TextField: {'widget': AdminPagedownWidget},
     }
 
     list_display = ('pk', 'project', 'is_visible', 'name', 'slug', 'created', 'modified')
