@@ -1,25 +1,26 @@
 {% extends "default/layouts/main.html" %}
 
 {% block content %}
-{% load custom_filters %}
+  {% load custom_filters %}
 
-<h2 class="ui header">{{ current_brand.name }}</h2>
+  <h2 class="ui header">{{ current_brand.name }}</h2>
 
-{% include 'default/elements/subheader.html' %}
+  {% include 'default/elements/subheader.html' %}
 
-{% autoescape off %}
-{{ current_project.description|markdownify }}
-{% endautoescape %}
+  {% autoescape off %}
+  {{ current_project.description|markdownify }}
+  {% endautoescape %}
 
-{% if current_project.pictures %}
-<div class="ui grid">
-  {% for picture in current_project.pictures %}
-  {% if forloop.counter|modulo:2 == 0 %}{% endif %}
-  <div class="eight wide column">
-    <img class="ui fluid image" src="{{ picture.absolute_url }}" title="{{ picture.name }}">
+  {% if current_project.pictures %}
+  <div class="ui relaxed grid">
+    <div class="three column row">
+    {% for picture in current_project.pictures %}
+      <div class="column">
+        <img class="ui fluid image" src="{{ picture.absolute_url }}" title="{{ picture.name }}">
+      </div>
+    {% endfor %}
+    </div>
   </div>
-  {% if forloop.counter > 1 and forloop.counter|modulo:2 == 1 %}</div>{% endif %}
-  {% endfor %}
-</div>
-{% endif %}
+  {% endif %}
+
 {% endblock %}
