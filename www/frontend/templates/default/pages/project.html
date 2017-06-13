@@ -21,11 +21,15 @@
 
       <div class="ui relaxed grid">
       {% for picture in pictures_group.pictures %}
+      {% if current_project.are_pictures_inline %}
+      <div class="one column row">
+      {% else %}
       {% if forloop.first or forloop.counter|modulo:3 == 1 %}<div class="{% if pictures_group|length < 3 %}{{ pictures_group.pictures|length|to_text }}{% else %}three{% endif %} column row">{% endif %}
+      {% endif %}
       <div class="column">
         <img class="ui fluid image" src="{{ picture.absolute_url }}" title="{{ picture.name }}">
       </div>
-      {% if forloop.counter > 1 and forloop.counter|modulo:3 == 0 or forloop.last %}</div>{% endif %}
+      {% if forloop.counter > 1 and forloop.counter|modulo:3 == 0 or forloop.last or current_project.are_pictures_inline %}</div>{% endif %}
       {% endfor %}
       </div>
 

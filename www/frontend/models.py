@@ -63,6 +63,7 @@ class Project(FrontendModel, SortableMixin):
     is_visible = models.BooleanField(default=False)
     description = models.TextField(blank=True, null=True)
     brand = models.ForeignKey('Brand')
+    are_pictures_inline = models.BooleanField(default=False)
 
     project_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 

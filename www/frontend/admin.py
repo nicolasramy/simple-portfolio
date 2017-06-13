@@ -78,7 +78,7 @@ class PictureInline(SortableStackedInline):
 
 @admin.register(Project)
 class ProjectAdmin(SortableAdmin):
-    fields = ('is_visible', 'brand', 'name', 'description')
+    fields = ('is_visible', 'are_pictures_inline', 'brand', 'name', 'description')
     inlines = [PictureInline]
 
     formfield_overrides = {
@@ -88,5 +88,5 @@ class ProjectAdmin(SortableAdmin):
     list_display = ('pk', 'is_visible', 'brand', 'name', 'slug', 'created', 'modified')
     list_display_links = ('pk', 'name')
 
-    list_filter = ('is_visible', 'brand', 'created')
+    list_filter = ('is_visible', 'are_pictures_inline', 'brand', 'created')
     search_fields = ['name', 'slug', 'description']
