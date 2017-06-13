@@ -12,8 +12,14 @@
 {% endautoescape %}
 
 {% if current_project.pictures %}
+<div class="ui grid">
   {% for picture in current_project.pictures %}
-  <img class="ui fluid image" src="{{ picture.image }}" title="{{ picture.name }}">
+  {% if forloop.counter|modulo:2 == 0 %}{% endif %}
+  <div class="eight wide column">
+    <img class="ui fluid image" src="{{ picture.absolute_url }}" title="{{ picture.name }}">
+  </div>
+  {% if forloop.counter > 1 and forloop.counter|modulo:2 == 1 %}</div>{% endif %}
   {% endfor %}
+</div>
 {% endif %}
 {% endblock %}

@@ -69,6 +69,7 @@ class Project(FrontendModel, SortableMixin):
     def pictures(self):
         project_pictures = Picture.objects.filter(project_id=self.id).all()
 
+        return project_pictures if len(project_pictures) else None
 
     class Meta:
         ordering = ['project_order']
