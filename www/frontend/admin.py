@@ -41,16 +41,16 @@ class BrandAdmin(SortableAdmin):
 
 @admin.register(Picture)
 class PictureAdmin(SortableAdmin):
-    fields = ('project', 'is_visible', 'header', 'name', 'image', 'description')
+    fields = ('project', 'is_visible', 'is_fluid', 'header', 'name', 'image', 'description')
 
     formfield_overrides = {
         models.TextField: {'widget': AdminPagedownWidget},
     }
 
-    list_display = ('pk', 'project', 'is_visible', 'header', 'name', 'preview', 'absolute_url', 'slug')
+    list_display = ('pk', 'project', 'is_visible', 'is_fluid', 'header', 'name', 'preview', 'absolute_url', 'slug')
     list_display_links = ('pk', 'name')
 
-    list_filter = ('project', 'is_visible', 'created')
+    list_filter = ('project', 'is_visible', 'is_fluid', 'created')
     search_fields = ['header', 'name', 'slug', 'description']
 
 
@@ -73,7 +73,7 @@ class PictureInline(SortableStackedInline):
     model = Picture
     extra = 1
 
-    fields = ('is_visible', 'header', 'name', 'image', 'description')
+    fields = ('is_visible', 'is_fluid', 'header', 'name', 'image')
 
 
 @admin.register(Project)

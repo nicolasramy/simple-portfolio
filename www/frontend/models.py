@@ -82,6 +82,7 @@ class Picture(FrontendModel, SortableMixin):
     slug = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     is_visible = models.BooleanField(default=False)
+    is_fluid = models.BooleanField(default=False)
 
     project = models.ForeignKey('Project', blank=True, null=True)
     image = models.ImageField(upload_to=get_upload_to_path)
