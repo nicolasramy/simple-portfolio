@@ -63,8 +63,22 @@ def project_view(request, brand_slug, project_slug):
 
     current_brand = Brand.objects.filter(is_visible=True).get(slug=brand_slug)
     current_project = Project.objects.filter(is_visible=True).filter(brand_id=current_brand.id).get(slug=project_slug)
+    current_pictures = Picture.objects.filter(is_visible=True).filter(project_id=current_project.id).all()
 
     context['current_brand'] = current_brand
     context['current_project'] = current_project
+
+    if len(current_pictures):
+        context['current_pictures'] = {}
+        result_group = 0
+        for position, picture in enumerate(current_pictures):
+            if position == 0 or picture.has_header():
+                result_group += 1
+                context['current_pictures'][result_group] = {
+                    'header': picture.header,
+                    'pictures': []
+                }
+
+            context['current_pictures'][result_group]['pictures'].append(picture)
 
     return render(request, 'default/pages/project.html', context)

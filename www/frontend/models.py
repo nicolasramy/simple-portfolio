@@ -66,11 +66,6 @@ class Project(FrontendModel, SortableMixin):
 
     project_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
-    def pictures(self):
-        project_pictures = Picture.objects.filter(project_id=self.id).all()
-
-        return project_pictures if len(project_pictures) else None
-
     class Meta:
         ordering = ['project_order']
         verbose_name = 'project'
@@ -82,6 +77,7 @@ class Project(FrontendModel, SortableMixin):
 
 class Picture(FrontendModel, SortableMixin):
     name = models.CharField(max_length=200, blank=True)
+    header = models.CharField(max_length=200, blank=True)
     slug = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     is_visible = models.BooleanField(default=False)
@@ -104,6 +100,9 @@ class Picture(FrontendModel, SortableMixin):
             return u'{}{}{}'.format(settings.SITE_URL, settings.MEDIA_URL, self.image)
         else:
             return False
+
+    def has_header(self):
+        return bool(len(self.header))
 
     preview.short_description = 'Image'
     preview.allow_tags = True

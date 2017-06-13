@@ -11,16 +11,27 @@
   {{ current_project.description|markdownify }}
   {% endautoescape %}
 
-  {% if current_project.pictures %}
-  <div class="ui relaxed grid">
-    {% for picture in current_project.pictures %}
-      {% if forloop.counter == 1 or forloop.counter|modulo:3 == 1 %}<div class="{% if current_project.pictures|length < 3 %}{{ current_project.pictures|length }}{% else %}three{% endif %} column row">{% endif %}
+  {% if current_pictures %}
+
+    {% for group_id in current_pictures %}
+      {% with pictures_group=current_pictures|get_dict:group_id %}
+      {% if pictures_group.header %}
+      <h3 class="ui header">{{ pictures_group.header }}</h3>
+      {% endif %}
+
+      <div class="ui relaxed grid">
+      {% for picture in pictures_group.pictures %}
+      {% if forloop.first or forloop.counter|modulo:3 == 1 %}<div class="{% if pictures_group|length < 3 %}{{ pictures_group.pictures|length|to_text }}{% else %}three{% endif %} column row">{% endif %}
       <div class="column">
         <img class="ui fluid image" src="{{ picture.absolute_url }}" title="{{ picture.name }}">
       </div>
-      {% if forloop.counter > 1 and forloop.counter|modulo:3 == 0 %}</div>{% endif %}
+      {% if forloop.counter > 1 and forloop.counter|modulo:3 == 0 or forloop.last %}</div>{% endif %}
+      {% endfor %}
+      </div>
+
+      {% endwith %}
     {% endfor %}
-  </div>
+
   {% endif %}
 
 {% endblock %}
