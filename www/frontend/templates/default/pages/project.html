@@ -16,7 +16,7 @@
     {% for group_id in current_pictures %}
       {% with pictures_group=current_pictures|get_dict:group_id %}
       {% if pictures_group.header %}
-      <h3 class="ui header">{{ pictures_group.header }}</h3>
+      <h3 class="ui center aligned header">{{ pictures_group.header }}</h3>
       {% endif %}
 
       <div class="ui relaxed grid">
