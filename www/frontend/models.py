@@ -73,7 +73,7 @@ class Project(FrontendModel, SortableMixin):
         verbose_name_plural = 'projects'
 
     def __unicode__(self):
-        return u'{}'.format(self.name)
+        return u'{} / {}'.format(self.brand, self.name)
 
 
 class Picture(FrontendModel, SortableMixin):
