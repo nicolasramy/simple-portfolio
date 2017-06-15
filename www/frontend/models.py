@@ -142,6 +142,30 @@ class Document(FrontendModel):
             return False
 
 
+class Video(FrontendModel):
+    name = models.CharField(max_length=200, blank=True)
+    slug = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    is_visible = models.BooleanField(default=False)
+
+    project = models.ForeignKey('Project', blank=True, null=True)
+    video = models.FileField(upload_to=get_upload_to_path)
+
+    class Meta:
+        ordering = ['-created']
+        verbose_name = 'video'
+        verbose_name_plural = 'videos'
+
+    def __unicode__(self):
+        return u'{}'.format(self.name)
+
+    def absolute_url(self):
+        if self.video:
+            return u'{}{}{}'.format(settings.SITE_URL, settings.MEDIA_URL, self.video)
+        else:
+            return False
+
+
 def generate_slug(sender, instance, **kwargs):
     instance.slug = slugify(instance.name)
 
@@ -153,6 +177,9 @@ def auto_fill_name(sender, instance, **kwargs):
 
         elif sender.__name__ == 'Document':
             instance.name = instance.document
+
+        elif sender.__name__ == 'Video':
+            instance.name = instance.video
 
 
 def generate_parameter_name(sender, instance, **kwargs):
@@ -166,5 +193,6 @@ pre_save.connect(generate_slug, sender=Document)
 
 pre_save.connect(auto_fill_name, sender=Picture)
 pre_save.connect(auto_fill_name, sender=Document)
+pre_save.connect(auto_fill_name, sender=Video)
 
 pre_save.connect(generate_parameter_name, sender=Parameter)

@@ -7,7 +7,7 @@ from django.db import models
 from adminsortable.admin import SortableAdmin, NonSortableParentAdmin, SortableStackedInline
 from pagedown.widgets import AdminPagedownWidget
 
-from .models import Parameter, Brand, Project, Picture, Document
+from .models import Parameter, Brand, Project, Picture, Document, Video
 
 
 @admin.register(Parameter)
@@ -57,6 +57,21 @@ class PictureAdmin(SortableAdmin):
 @admin.register(Document)
 class DocumentAdmin(SortableAdmin):
     fields = ('project', 'is_visible', 'name', 'document', 'description')
+
+    formfield_overrides = {
+        models.TextField: {'widget': AdminPagedownWidget},
+    }
+
+    list_display = ('pk', 'project', 'is_visible', 'name', 'slug', 'created', 'modified')
+    list_display_links = ('pk', 'name')
+
+    list_filter = ('project', 'is_visible', 'created')
+    search_fields = ['name', 'slug', 'description']
+
+
+@admin.register(Video)
+class VideoAdmin(SortableAdmin):
+    fields = ('project', 'is_visible', 'name', 'video', 'description')
 
     formfield_overrides = {
         models.TextField: {'widget': AdminPagedownWidget},
