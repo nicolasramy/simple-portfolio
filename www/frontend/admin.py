@@ -95,13 +95,20 @@ class DocumentInline(SortableStackedInline):
     model = Document
     extra = 1
 
-    fields = ('is_visible', 'name', 'document')
+    fields = ('is_visible', 'header', 'name', 'document')
+
+
+class VideoInline(SortableStackedInline):
+    model = Video
+    extra = 1
+
+    fields = ('is_visible', 'header', 'name', 'video')
 
 
 @admin.register(Project)
 class ProjectAdmin(SortableAdmin):
-    fields = ('is_visible', 'are_pictures_inline', 'brand', 'name', 'description')
-    inlines = [PictureInline]
+    fields = ('is_visible', 'are_pictures_inline', 'brand', 'name', 'display_order', 'description')
+    inlines = [PictureInline, VideoInline, DocumentInline]
 
     formfield_overrides = {
         models.TextField: {'widget': AdminPagedownWidget},

@@ -152,7 +152,7 @@ class Document(FrontendModel, SortableMixin):
     document_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
     class Meta:
-        ordering = ['-created']
+        ordering = ['document_order']
         verbose_name = 'document'
         verbose_name_plural = 'documents'
 
@@ -182,7 +182,7 @@ class Video(FrontendModel, SortableMixin):
     video_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
     class Meta:
-        ordering = ['-created']
+        ordering = ['video_order']
         verbose_name = 'video'
         verbose_name_plural = 'videos'
 
