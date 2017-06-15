@@ -91,6 +91,13 @@ class PictureInline(SortableStackedInline):
     fields = ('is_visible', 'is_fluid', 'header', 'name', 'image')
 
 
+class DocumentInline(SortableStackedInline):
+    model = Document
+    extra = 1
+
+    fields = ('is_visible', 'name', 'document')
+
+
 @admin.register(Project)
 class ProjectAdmin(SortableAdmin):
     fields = ('is_visible', 'are_pictures_inline', 'brand', 'name', 'description')

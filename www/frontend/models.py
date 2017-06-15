@@ -67,6 +67,27 @@ class Project(FrontendModel, SortableMixin):
 
     project_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
+    # P = Picture
+    # V = Video
+    # D = Document
+    DISPLAY_PVD = 0
+    DISPLAY_VDP = 1
+    DISPLAY_DPV = 2
+    DISPLAY_PDV = 3
+    DISPLAY_DVP = 4
+    DISPLAY_VPD = 5
+
+    DISPLAY_CHOICES = (
+        (DISPLAY_PVD, 'Picture, Video, Document'),
+        (DISPLAY_VDP, 'Video, Document, Picture'),
+        (DISPLAY_DPV, 'Document, Picture, Video'),
+        (DISPLAY_PDV, 'Picture, Document, Video'),
+        (DISPLAY_DVP, 'Document, Video, Picture'),
+        (DISPLAY_VPD, 'Video, Picture, Document'),
+    )
+
+    display_order = models.IntegerField(choices=DISPLAY_CHOICES, default=DISPLAY_PVD)
+
     class Meta:
         ordering = ['project_order']
         verbose_name = 'project'
@@ -118,14 +139,17 @@ class Picture(FrontendModel, SortableMixin):
         return u'{}'.format(self.name)
 
 
-class Document(FrontendModel):
+class Document(FrontendModel, SortableMixin):
     name = models.CharField(max_length=200, blank=True)
+    header = models.CharField(max_length=200, blank=True)
     slug = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     is_visible = models.BooleanField(default=False)
 
     project = models.ForeignKey('Project', blank=True, null=True)
     document = models.FileField(upload_to=get_upload_to_path)
+
+    document_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
     class Meta:
         ordering = ['-created']
@@ -141,15 +165,21 @@ class Document(FrontendModel):
         else:
             return False
 
+    def has_header(self):
+        return bool(len(self.header))
 
-class Video(FrontendModel):
+
+class Video(FrontendModel, SortableMixin):
     name = models.CharField(max_length=200, blank=True)
+    header = models.CharField(max_length=200, blank=True)
     slug = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     is_visible = models.BooleanField(default=False)
 
     project = models.ForeignKey('Project', blank=True, null=True)
     video = models.FileField(upload_to=get_upload_to_path)
+
+    video_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
     class Meta:
         ordering = ['-created']
@@ -164,6 +194,9 @@ class Video(FrontendModel):
             return u'{}{}{}'.format(settings.SITE_URL, settings.MEDIA_URL, self.video)
         else:
             return False
+
+    def has_header(self):
+        return bool(len(self.header))
 
 
 def generate_slug(sender, instance, **kwargs):
