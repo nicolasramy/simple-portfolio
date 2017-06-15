@@ -11,31 +11,30 @@
   {{ current_project.description|markdownify }}
   {% endautoescape %}
 
-  {% if current_pictures %}
-
-    {% for group_id in current_pictures %}
-      {% with pictures_group=current_pictures|get_dict:group_id %}
-      {% if pictures_group.header %}
-      <h3 class="ui center aligned header">{{ pictures_group.header }}</h3>
-      {% endif %}
-
-      <div class="ui relaxed grid">
-      {% for picture in pictures_group.pictures %}
-      {% if current_project.are_pictures_inline %}
-      <div class="one column row">
-      {% else %}
-      {% if forloop.first or forloop.counter|modulo:3 == 1 %}<div class="{% if pictures_group|length < 3 %}{{ pictures_group.pictures|length|to_text }}{% else %}three{% endif %} column row">{% endif %}
-      {% endif %}
-      <div class="column">
-        <img class="ui {% if picture.is_fluid %}fluid{% else %}centered{% endif %} image" src="{{ picture.absolute_url }}" title="{{ picture.name }}">
-      </div>
-      {% if forloop.counter > 1 and forloop.counter|modulo:3 == 0 or forloop.last or current_project.are_pictures_inline %}</div>{% endif %}
-      {% endfor %}
-      </div>
-
-      {% endwith %}
-    {% endfor %}
-
+  {% if current_project.display_order == 0 %}
+    {% include 'default/elements/pictures.html' %}
+    {% include 'default/elements/videos.html' %}
+    {% include 'default/elements/documents.html' %}
+  {% elif current_project.display_order == 1 %}
+    {% include 'default/elements/videos.html' %}
+    {% include 'default/elements/documents.html' %}
+    {% include 'default/elements/pictures.html' %}
+  {% elif current_project.display_order == 2 %}
+    {% include 'default/elements/documents.html' %}
+    {% include 'default/elements/pictures.html' %}
+    {% include 'default/elements/videos.html' %}
+  {% elif current_project.display_order == 3 %}
+    {% include 'default/elements/pictures.html' %}
+    {% include 'default/elements/documents.html' %}
+    {% include 'default/elements/videos.html' %}
+  {% elif current_project.display_order == 4 %}
+    {% include 'default/elements/documents.html' %}
+    {% include 'default/elements/videos.html' %}
+    {% include 'default/elements/pictures.html' %}
+  {% elif current_project.display_order == 5 %}
+    {% include 'default/elements/videos.html' %}
+    {% include 'default/elements/pictures.html' %}
+    {% include 'default/elements/documents.html' %}
   {% endif %}
 
 {% endblock %}

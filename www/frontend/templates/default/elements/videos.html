@@ -1,0 +1,23 @@
+{% load custom_filters %}
+
+{% if current_videos %}
+  {% for group_id in current_videos %}
+    {% with videos_group=current_videos|get_dict:group_id %}
+    {% if videos_group.header %}
+    <h3 class="ui center aligned header">{{ videos_group.header }}</h3>
+    {% endif %}
+
+    <div class="ui relaxed grid">
+    {% for video in videos_group.videos %}
+      <div class="one column row">
+        <div class="column">
+          <video class="ui video" width="100%" controls>
+            <source src="{{ video.relative_url }}" >
+          </video>
+        </div>
+      </div>
+      {% endfor %}
+      {% endwith %}
+    {% endfor %}
+    </div>
+{% endif %}

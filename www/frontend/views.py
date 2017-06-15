@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
-from .models import Parameter, Brand, Project, Picture
+from .models import Parameter, Brand, Project, Picture, Document, Video
 
 
 def contextualize():
@@ -64,6 +64,8 @@ def project_view(request, brand_slug, project_slug):
     current_brand = Brand.objects.filter(is_visible=True).get(slug=brand_slug)
     current_project = Project.objects.filter(is_visible=True).filter(brand_id=current_brand.id).get(slug=project_slug)
     current_pictures = Picture.objects.filter(is_visible=True).filter(project_id=current_project.id).all()
+    current_videos = Video.objects.filter(is_visible=True).filter(project_id=current_project.id).all()
+    current_documents = Document.objects.filter(is_visible=True).filter(project_id=current_project.id).all()
 
     context['current_brand'] = current_brand
     context['current_project'] = current_project
@@ -80,5 +82,31 @@ def project_view(request, brand_slug, project_slug):
                 }
 
             context['current_pictures'][result_group]['pictures'].append(picture)
+
+    if len(current_videos):
+        context['current_videos'] = {}
+        result_group = 0
+        for position, video in enumerate(current_videos):
+            if position == 0 or video.has_header():
+                result_group += 1
+                context['current_videos'][result_group] = {
+                    'header': video.header,
+                    'videos': []
+                }
+
+            context['current_videos'][result_group]['videos'].append(video)
+
+    if len(current_documents):
+        context['current_documents'] = {}
+        result_group = 0
+        for position, document in enumerate(current_documents):
+            if position == 0 or document.has_header():
+                result_group += 1
+                context['current_documents'][result_group] = {
+                    'header': document.header,
+                    'documents': []
+                }
+
+            context['current_documents'][result_group]['documents'].append(document)
 
     return render(request, 'default/pages/project.html', context)

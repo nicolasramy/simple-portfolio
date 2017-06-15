@@ -41,7 +41,7 @@ class BrandAdmin(SortableAdmin):
 
 @admin.register(Picture)
 class PictureAdmin(SortableAdmin):
-    fields = ('project', 'is_visible', 'is_fluid', 'header', 'name', 'image', 'description')
+    fields = ('project', 'is_visible', 'is_fluid', 'header', 'name', 'image')
 
     formfield_overrides = {
         models.TextField: {'widget': AdminPagedownWidget},
@@ -71,7 +71,7 @@ class DocumentAdmin(SortableAdmin):
 
 @admin.register(Video)
 class VideoAdmin(SortableAdmin):
-    fields = ('project', 'is_visible', 'name', 'video', 'description')
+    fields = ('project', 'is_visible', 'name', 'video')
 
     formfield_overrides = {
         models.TextField: {'widget': AdminPagedownWidget},
@@ -95,7 +95,7 @@ class DocumentInline(SortableStackedInline):
     model = Document
     extra = 1
 
-    fields = ('is_visible', 'header', 'name', 'document')
+    fields = ('is_visible', 'header', 'name', 'document', 'description')
 
 
 class VideoInline(SortableStackedInline):

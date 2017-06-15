@@ -5,3 +5,8 @@
 .ui.sub.header {
   text-transform: none;
 }
+
+video {
+  width: 100%    !important;
+  height: auto   !important;
+}

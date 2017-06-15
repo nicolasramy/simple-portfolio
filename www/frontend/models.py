@@ -124,6 +124,12 @@ class Picture(FrontendModel, SortableMixin):
         else:
             return False
 
+    def relative_url(self):
+        if self.image:
+            return u'{}{}'.format(settings.MEDIA_URL, self.image)
+        else:
+            return False
+
     def has_header(self):
         return bool(len(self.header))
 
@@ -165,6 +171,12 @@ class Document(FrontendModel, SortableMixin):
         else:
             return False
 
+    def relative_url(self):
+        if self.document:
+            return u'{}{}'.format(settings.MEDIA_URL, self.document)
+        else:
+            return False
+
     def has_header(self):
         return bool(len(self.header))
 
@@ -192,6 +204,12 @@ class Video(FrontendModel, SortableMixin):
     def absolute_url(self):
         if self.video:
             return u'{}{}{}'.format(settings.SITE_URL, settings.MEDIA_URL, self.video)
+        else:
+            return False
+
+    def relative_url(self):
+        if self.video:
+            return u'{}{}'.format(settings.MEDIA_URL, self.video)
         else:
             return False
 
