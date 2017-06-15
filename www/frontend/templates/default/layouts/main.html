@@ -1,0 +1,27 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" class="app">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ params.site_title }} - {{ params.site_subtitle }}</title>
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="{% static 'default/css/semantic.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'default/css/app.css' %}">
+
+    <script src="{% static 'default/js/jquery.min.js' %}"></script>
+    <script src="{% static 'default/js/semantic.min.js' %}"></script>
+    {% block css %}{% endblock %}
+  </head>
+  <body>
+    <div class="ui main container">
+      {% include 'default/elements/header.html' %}
+
+      {% block content %}{% endblock %}
+    </div>
+
+    <script src="{% static 'default/js/app.js' %}"></script>
+    {% block js %}{% endblock %}
+  </body>
+</html>

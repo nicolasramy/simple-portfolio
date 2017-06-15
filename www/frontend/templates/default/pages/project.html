@@ -1,0 +1,40 @@
+{% extends "default/layouts/main.html" %}
+
+{% block content %}
+  {% load custom_filters %}
+
+  <h2 class="ui header">{{ current_brand.name }}</h2>
+
+  {% include 'default/elements/subheader.html' %}
+
+  {% autoescape off %}
+  {{ current_project.description|markdownify }}
+  {% endautoescape %}
+
+  {% if current_project.display_order == 0 %}
+    {% include 'default/elements/pictures.html' %}
+    {% include 'default/elements/videos.html' %}
+    {% include 'default/elements/documents.html' %}
+  {% elif current_project.display_order == 1 %}
+    {% include 'default/elements/videos.html' %}
+    {% include 'default/elements/documents.html' %}
+    {% include 'default/elements/pictures.html' %}
+  {% elif current_project.display_order == 2 %}
+    {% include 'default/elements/documents.html' %}
+    {% include 'default/elements/pictures.html' %}
+    {% include 'default/elements/videos.html' %}
+  {% elif current_project.display_order == 3 %}
+    {% include 'default/elements/pictures.html' %}
+    {% include 'default/elements/documents.html' %}
+    {% include 'default/elements/videos.html' %}
+  {% elif current_project.display_order == 4 %}
+    {% include 'default/elements/documents.html' %}
+    {% include 'default/elements/videos.html' %}
+    {% include 'default/elements/pictures.html' %}
+  {% elif current_project.display_order == 5 %}
+    {% include 'default/elements/videos.html' %}
+    {% include 'default/elements/pictures.html' %}
+    {% include 'default/elements/documents.html' %}
+  {% endif %}
+
+{% endblock %}

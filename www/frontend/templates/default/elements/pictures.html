@@ -1,0 +1,26 @@
+{% load custom_filters %}
+
+{% if current_pictures %}
+  {% for group_id in current_pictures %}
+    {% with pictures_group=current_pictures|get_dict:group_id %}
+    {% if pictures_group.header %}
+    <h3 class="ui center aligned header">{{ pictures_group.header }}</h3>
+    {% endif %}
+
+    <div class="ui relaxed grid">
+    {% for picture in pictures_group.pictures %}
+    {% if current_project.are_pictures_inline %}
+    <div class="one column row">
+    {% else %}
+    {% if forloop.first or forloop.counter|modulo:3 == 1 %}<div class="{% if pictures_group|length < 3 %}{{ pictures_group.pictures|length|to_text }}{% else %}three{% endif %} column row">{% endif %}
+    {% endif %}
+    <div class="column">
+      <img class="ui {% if picture.is_fluid %}fluid{% else %}centered{% endif %} image" src="{{ picture.relative_url }}" title="{{ picture.name }}">
+    </div>
+    {% if forloop.counter > 1 and forloop.counter|modulo:3 == 0 or forloop.last or current_project.are_pictures_inline %}</div>{% endif %}
+    {% endfor %}
+    </div>
+
+    {% endwith %}
+  {% endfor %}
+{% endif %}

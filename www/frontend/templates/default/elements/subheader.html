@@ -1,0 +1,7 @@
+{% if current_brand.projects %}
+<div class="ui large text menu">
+  {% for project in current_brand.projects %}
+  <a class="{% if current_project.slug == project.slug %}active{% endif %} item" href="{% url 'project_view' project.brand.slug project.slug %}">{{ project.name }}</a>
+  {% endfor %}
+</div>
+{% endif %}

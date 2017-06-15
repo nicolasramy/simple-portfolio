@@ -1,0 +1,30 @@
+{% load custom_filters %}
+
+{% if current_documents %}
+  {% for group_id in current_documents %}
+    {% with documents_group=current_documents|get_dict:group_id %}
+    {% if documents_group.header %}
+    <h3 class="ui center aligned header">{{ documents_group.header }}</h3>
+    {% endif %}
+
+    <div class="ui relaxed grid">
+
+      <div class="one column row">
+        <div class="column">
+          <div class="ui large list">
+          {% for document in documents_group.documents %}
+            <div class="item">
+              <i class="file outline icon"></i>
+              <div class="content">
+                <a class="header" href="{{ document.relative_url }}">{{ document.name }}</a>
+                {% if document.description %}<div class="description">{{ document.description }}</div>{% endif %}
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endwith %}
+    {% endfor %}
+    </div>
+{% endif %}

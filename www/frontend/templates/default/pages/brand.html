@@ -1,0 +1,13 @@
+{% extends "default/layouts/main.html" %}
+
+{% block content %}
+{% load custom_filters %}
+<h2 class="ui header">{{ current_brand.name }}</h2>
+
+{% autoescape off %}
+{{ current_brand.description|markdownify }}
+{% endautoescape %}
+
+{% include 'default/elements/subheader.html' %}
+
+{% endblock %}
